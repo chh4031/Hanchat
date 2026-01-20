@@ -20,5 +20,8 @@
 
 ---
 ### 스크린샷
+![예시1](https://github.com/chh4031/Hanchat/blob/main/img/1.png)
+![예시2](https://github.com/chh4031/Hanchat/blob/main/img/2.png)
+
 
 생성형 AI 활용하여 개발(Gemini)
