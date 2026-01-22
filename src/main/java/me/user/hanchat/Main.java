@@ -56,7 +56,8 @@ public class Main extends JavaPlugin implements Listener, CommandExecutor {
         String rawMessage = PlainTextComponentSerializer.plainText().serialize(event.originalMessage());
         
         // 영어와 공백으로만 이루어진 경우에만 변환 (기호/숫자 포함 시 변환 제외하여 오작동 방지) 숫자 기호는 동일하게 쓰니깐 ㅇㅇ
-        if (rawMessage.matches("^[a-zA-Z\\s]+$")) {
+        // 특수문자 있어도 ko명령 활성시 한글로 처리되도록 수정함 앞 뒤 ? . 등 쓰는경우가 있으니깐
+        if (rawMessage.matches(".*[a-zA-Z].*")) {
             String converted = HangulConverter.translate(rawMessage);
             
             //[한] (하늘색) + 한글 메시지 (흰색) => 하늘색이 보기 나음

@@ -1,8 +1,8 @@
 name: MyHanChat
-version: 1.0
+version: 1.1
 main: me.user.hanchat.Main
 api-version: '1.21'
 commands:
   ko:
-    description: 한글 채팅 모드를 토글합니다.
+    description: 한글 채팅 모드
     usage: /ko
