@@ -4,7 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HangulConverter {
-    private static final String ENG_KEY = "q w e r t y u i o p a s d f g h j k l z x c v b n m Q W E R T O P";
+    // 매핑 수정: P(ㅖ), O(ㅒ) 순서로 자판 배열에 맞게 조정
+    private static final String ENG_KEY = "q w e r t y u i o p a s d f g h j k l z x c v b n m Q W E R T P O";
     private static final String KOR_KEY = "ㅂ ㅈ ㄷ ㄱ ㅅ ㅛ ㅕ ㅑ ㅐ ㅔ ㅁ ㄴ ㅇ ㄹ ㅎ ㅗ ㅓ ㅏ ㅣ ㅋ ㅌ ㅊ ㅍ ㅠ ㅜ ㅡ ㅃ ㅉ ㄸ ㄲ ㅆ ㅖ ㅒ";
     private static final Map<Character, String> KEY_MAP = new HashMap<>();
     private static final Map<String, String> DOUBLE_JUNG = new HashMap<>();
@@ -17,7 +18,9 @@ public class HangulConverter {
     static {
         String[] e = ENG_KEY.split(" ");
         String[] k = KOR_KEY.split(" ");
-        for (int i = 0; i < e.length; i++) KEY_MAP.put(e[i].charAt(0), k[i]);
+        for (int i = 0; i < e.length; i++) {
+            if (i < k.length) KEY_MAP.put(e[i].charAt(0), k[i]);
+        }
 
         // 이중 모음 (왜, 워 등)
         DOUBLE_JUNG.put("ㅗㅏ", "ㅘ"); DOUBLE_JUNG.put("ㅗㅐ", "ㅙ"); DOUBLE_JUNG.put("ㅗㅣ", "ㅚ");
@@ -34,7 +37,8 @@ public class HangulConverter {
     public static String translate(String input) {
         StringBuilder jamo = new StringBuilder();
         for (char c : input.toCharArray()) {
-            if ("QWERTop".indexOf(c) >= 0) jamo.append(KEY_MAP.getOrDefault(c, String.valueOf(c)));
+            // 대문자 P, O를 인식하도록 수정 (indexOf 조건에 P와 O 추가)
+            if ("QWERTYOP".indexOf(c) >= 0) jamo.append(KEY_MAP.getOrDefault(c, String.valueOf(c)));
             else jamo.append(KEY_MAP.getOrDefault(Character.toLowerCase(c), String.valueOf(c)));
         }
         return assemble(jamo.toString());
